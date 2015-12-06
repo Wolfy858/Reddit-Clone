@@ -23,18 +23,19 @@ class UsersController < ApplicationController
     render :show
   end
 
-  # def edit
-  #   @user = current_user
-  # end
-  #
-  # def update
-  #   @user = current_user
-  #   if @user.update(user_params)
-  #     redirect_to user_url
-  #   else
-  #     render :edit
-  #   end
-  # end
+  def edit
+    @user = User.find(params[:id])
+    render :edit
+  end
+
+  def update
+    @user = User.find_by(params[:id])
+    if @user.update(user_params)
+      redirect_to user_url(@user)
+    else
+      render :edit
+    end
+  end
 
   protected
 
