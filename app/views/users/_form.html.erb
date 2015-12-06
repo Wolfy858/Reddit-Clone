@@ -1,4 +1,4 @@
-<% action = (user.persisted? ? user_url(user) : user_url )%>
+<% action = (user.persisted? ? users_url(user) : users_url )%>
 <% method = (user.persisted? ? "patch" : "post" )%>
 <% message = (user.persisted? ? "Update profile" : "Sign up") %>
 

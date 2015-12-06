@@ -1,11 +1,15 @@
 class UsersController < ApplicationController
 
+  before_action :require_current_user!, except: [:create, :new]
+  before_action :validate_user_permissions, only: [:show, :edit, :update]
+
   def create
     @user = User.new(user_params)
     if @user.save
-      render json: @user
+      login!(@user)
+      redirect_to user_url(@user)
     else
-      render json: @user.errors.full_messages
+      render :new
     end
   end
 
@@ -14,10 +18,32 @@ class UsersController < ApplicationController
     render :new
   end
 
+  def show
+    @user = User.find(params[:id])
+    render :show
+  end
+
+  # def edit
+  #   @user = current_user
+  # end
+  #
+  # def update
+  #   @user = current_user
+  #   if @user.update(user_params)
+  #     redirect_to user_url
+  #   else
+  #     render :edit
+  #   end
+  # end
+
   protected
 
   def user_params
     params.require(:user).permit(:username, :password, :session_token)
+  end
+
+  def validate_user_permissions
+    render json: "You cannot access that user's page" unless params[:id].to_i == current_user.id
   end
 
 end
