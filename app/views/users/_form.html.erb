@@ -1,6 +1,6 @@
-<% action = (@user.persisted? ? users_url(@user) : users_url )%>
-<% method = (@user.persisted? ? "patch" : "post" ) %>
-<% message = (@user.persisted? ? "Update profile" : "Sign up") %>
+<% action = (user.persisted? ? user_url(user) : users_url )%>
+<% method = (user.persisted? ? "patch" : "post" ) %>
+<% message = (user.persisted? ? "Update profile" : "Sign up") %>
 
 <form action="<%= action %>" method="post">
   <input
@@ -12,11 +12,9 @@
     type="hidden"
     value="<% form_authenticity_token %>">
 
-  <label for="user_username">Username</label>
-  <input
-    id="user_username"
-    type="text"
-    name="user[username]">
+  <%= render "username" unless @user.persisted? %>
+
+
   <br>
   <label for="user_password">Password</label>
   <input
