@@ -1,3 +1,6 @@
 <h1><%= @user.username %></h1>
 
 <p>Hello, dear user!</p>
+
+
+<%= button_to "Edit preferences", edit_user_url(@user), method: :get %>
