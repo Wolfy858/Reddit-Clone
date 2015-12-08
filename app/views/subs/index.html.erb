@@ -1,7 +1,7 @@
 <h1>ALL the Subs</h1>
 
 <ul>
-  <% Sub.all do |sub| %>
-  <li><%= Sub.name %></li>
+  <% Sub.all.each do |subreddit| %>
+  <li><%= subreddit.name %></li>
   <% end %>
 </ul>
