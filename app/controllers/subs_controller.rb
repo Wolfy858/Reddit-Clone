@@ -1,9 +1,10 @@
-class SubsControllers < ApplicationController
+class SubsController < ApplicationController
 
   def index
   end
 
   def show
+    @sub = Sub.find(params[:id])
   end
 
   def new
@@ -12,9 +13,9 @@ class SubsControllers < ApplicationController
   end
 
   def create
-    @sub = Sub.new(sub_params)
-    if @sub.save
-      redirect_to sub_url
+    @sub = current_user.subs.new(sub_params)
+    if @sub.save!
+      redirect_to sub_url(@sub)
     else
       render :new
     end

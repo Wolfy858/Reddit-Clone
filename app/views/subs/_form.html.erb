@@ -1,6 +1,6 @@
-<% action = (subreddit.persisted? ? user_url(user) : users_url )%>
-<% method = (subreddit.persisted? ? "patch" : "post" ) %>
-<% message = (subreddit.persisted? ? "Update <%=subreddit.name %>" : "Create Subreddit") %>
+<% action = (@sub.persisted? ? sub_url(@sub) : subs_url )%>
+<% method = (@sub.persisted? ? "patch" : "post" ) %>
+<% message = (@sub.persisted? ? "Update #{@sub.name} " : "Create Subreddit") %>
 
 <form action="<%= action %>" method="post">
   <input
@@ -12,16 +12,13 @@
     type="hidden"
     value="<% form_authenticity_token %>">
 
-  <%= render "name" unless subreddit.persisted? %>
+  <%= render "name" unless @sub.persisted? %>
 
 
   <br>
   <label for="sub_description">Description</label>
-  <textarea
-    id="sub_description"
-    type="password"
-    name="sub[description]">
-  </textarea>
-<br>
+  <br>
+  <textarea id="sub_description" type="password" name="sub[description]"></textarea>
+  <br>
   <input type="submit" value="<%= message %>">
 </form>
