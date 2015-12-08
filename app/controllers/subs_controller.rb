@@ -1,5 +1,8 @@
 class SubsController < ApplicationController
 
+  before_action :require_current_user!, except: [:index, :show]
+  before_action :validate_moderator_status!, only: [:edit, :update]
+
   def index
   end
 
@@ -41,6 +44,14 @@ class SubsController < ApplicationController
 
   def sub_params
     params.require(:sub).permit(:name, :description, :moderator)
+  end
+
+  def validate_moderator_status!
+    subreddit = Sub.find(params[:id])
+    unless current_user.subs.include?(subreddit)
+      flash.now[:errors] = "You must be the moderator of this subreddit to edit it."
+      redirect_to subs_url
+    end
   end
 
 end
