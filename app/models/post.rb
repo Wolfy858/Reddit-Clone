@@ -11,7 +11,7 @@ class Post < ActiveRecord::Base
   belongs_to :subreddit,
   primary_key: :id,
   foreign_key: :sub_id,
-  class_name: "Sub"
+  class_name: "Sub",
   inverse_of: :posts
 
 

@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   inverse_of: :moderator
 
   has_many :posts,
-  class_name: "Post"
+  class_name: "Post",
   foreign_key: :user_id,
   primary_key: :id,
   inverse_of: :author
